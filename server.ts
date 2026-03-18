@@ -15,13 +15,22 @@ async function startServer() {
   app.use(express.json());
 
   // 2. MongoDB Connection
-  // Note: In a real environment, ensure MONGO_URI is set in your environment variables
-  const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/soul_bouquets';
+  const MONGO_URI = process.env.MONGO_URI;
+  
+  if (!MONGO_URI) {
+    console.warn('\n⚠️ WARNING: MONGO_URI environment variable is not set.');
+    if (process.env.NODE_ENV === 'production') {
+      console.warn('⚠️ In production (like Render), you MUST set MONGO_URI to your MongoDB Atlas connection string.');
+      console.warn('⚠️ Falling back to localhost, which WILL fail in production.\n');
+    }
+  }
+
+  const connectionString = MONGO_URI || 'mongodb://localhost:27017/soul_bouquets';
   
   try {
     console.log('Attempting to connect to MongoDB...');
     // Connect in the background so we don't block server startup
-    mongoose.connect(MONGO_URI).then(() => {
+    mongoose.connect(connectionString).then(() => {
       console.log('✅ MongoDB Connected Successfully');
     }).catch((error) => {
       if (error.message && error.message.includes("IP that isn't whitelisted")) {
