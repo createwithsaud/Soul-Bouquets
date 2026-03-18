@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import mongoose from 'mongoose';
-import Product from '../models/Product';
+import Product from '../models/Product.js';
 
 const mockProducts = [
   {

@@ -1,6 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import Order from '../models/Order';
+import Order from '../models/Order.js';
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 

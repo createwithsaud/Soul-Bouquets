@@ -3,8 +3,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import { createServer as createViteServer } from 'vite';
 import path from 'path';
-import productRoutes from './routes/productRoutes';
-import orderRoutes from './routes/orderRoutes';
+import productRoutes from './routes/productRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 
 async function startServer() {
   const app = express();
